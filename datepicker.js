@@ -50,9 +50,9 @@ class DatePicker extends Component {
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.date !== this.props.date) {
-      this.setState({date: this.getDate(nextProps.date)});
+   componentDidUpdate(prevProps) {
+    if (prevProps.date !== this.props.date) {
+       this.setState({date: this.getDate(this.props.date)});
     }
   }
 
@@ -66,7 +66,8 @@ class DatePicker extends Component {
         this.state.animatedHeight,
         {
           toValue: height,
-          duration: duration
+          duration: duration,
+          useNativeDriver: false,
         }
       ).start();
     } else {
@@ -74,7 +75,8 @@ class DatePicker extends Component {
         this.state.animatedHeight,
         {
           toValue: 0,
-          duration: duration
+          duration: duration,
+          useNativeDriver: false,
         }
       ).start(() => {
         this.setState({modalVisible: visible});
